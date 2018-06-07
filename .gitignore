@@ -1,5 +1,10 @@
 # env variables
 .env
+bundle.js
+.DS_Store
 
 # package-lock
 package-lock.json
+
+# modules
+node_modules/
