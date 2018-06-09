@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Main extends Component {
   render() {
     return (
-      <div className="main">
+      <div className="center">
         <p className="welcome">Welcome</p>
-        <button className="btn signup">SIGN UP</button>
-        <button className="btn login">LOGIN</button>
+        <Link to="/signup">
+          <button className="btn signup">SIGN UP</button>
+        </Link>
+        <Link to="/login">
+          <button className="btn orange">LOGIN</button>
+        </Link>
       </div>
     );
   }

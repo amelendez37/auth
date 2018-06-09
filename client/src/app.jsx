@@ -10,8 +10,8 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path='/' component={Main}/>
-        <Route exact path='/signup' component={Signup}/>
-        <Route exact path='/login' component={Login}/>
+        <Route exact path='/signup' render={props => <Signup handleInputChange={this.handleInputChange}/>}/>
+        <Route exact path='/login' render={props => <Login handleInputChange={this.handleInputChange}/>}/>
       </Switch>
     );
   }

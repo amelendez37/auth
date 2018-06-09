@@ -12,10 +12,10 @@
 body {
     height: 100vh;
     background: #FF6161; /* For browsers that do not support gradients */
-    background: linear-gradient(to bottom right, #FF6161, #FFA261);
+    background: linear-gradient(to bottom, #FF6161, #FFA261);
     font-family: 'Roboto', sans-serif;
 }
-.main {
+.center {
     width: 20%;
     margin: 0 auto;
     padding: 30vh 0;
@@ -27,6 +27,9 @@ body {
     font-weight: 600;
     color: white;
 }
+.password {
+  margin-bottom: 12%;
+}
 
 /************************
         Buttons
@@ -37,6 +40,7 @@ body {
     width: 100%;
     height: 5vh;
     cursor: pointer;
+    outline: none;
 }
 .btn:hover {
     background-color: #FFD5B8;
@@ -48,6 +52,10 @@ body {
     background-color: Transparent;
     color: white;
 }
-.login {
+.orange {
     color: #FF6161;
+}
+.signup-btn {
+    position: relative;
+    left: 1.5vw;
 }
