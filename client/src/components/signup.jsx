@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField';
 
 const textFieldStyles = {
   style: { 
-    width: '23vw'
+    width: '23vw',
   },
   borderColor: {
     borderColor: '#FFF'
@@ -26,6 +26,10 @@ class Signup extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  handleSignupClick() {
+    // make post request to server
+  }
+
   render() {
     return (
       <div className="center">
@@ -33,6 +37,7 @@ class Signup extends Component {
          style={textFieldStyles.style}
          underlineFocusStyle={textFieldStyles.borderColor}
          floatingLabelStyle={textFieldStyles.color}
+         inputStyle={textFieldStyles.color}
          floatingLabelText="USERNAME"
          floatingLabelFixed={true}
          name="username"
@@ -42,13 +47,15 @@ class Signup extends Component {
          style={textFieldStyles.style}
          underlineFocusStyle={textFieldStyles.borderColor}
          floatingLabelStyle={textFieldStyles.color}
+         inputStyle={textFieldStyles.color}
          floatingLabelText="PASSWORD"
          floatingLabelFixed={true}
          name="password"
          onChange={(e) => this.handleInputChange(e)}
          className="password"
+         type="password"
         />
-        <button className="btn signup-btn orange">SIGN UP</button>
+        <button className="btn signup-btn orange" onClick={this.handleSignupClick}>SIGN UP</button>
       </div>
     );
   }

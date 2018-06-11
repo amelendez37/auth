@@ -26,6 +26,10 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  handleLoginClick() {
+    // make get request to server
+  }
+
   render() {
     return (
       <div className="center">
@@ -33,6 +37,7 @@ class Login extends Component {
          style={textFieldStyles.style}
          underlineFocusStyle={textFieldStyles.borderColor}
          floatingLabelStyle={textFieldStyles.color}
+         inputStyle={textFieldStyles.color}
          floatingLabelText="USERNAME"
          floatingLabelFixed={true}
          name="username"
@@ -42,13 +47,15 @@ class Login extends Component {
          style={textFieldStyles.style}
          underlineFocusStyle={textFieldStyles.borderColor}
          floatingLabelStyle={textFieldStyles.color}
+         inputStyle={textFieldStyles.color}
          floatingLabelText="PASSWORD"
          floatingLabelFixed={true}
          name="password"
          onChange={(e) => this.handleInputChange(e)}
          className="password"
+         type="password"
         />
-        <button className="btn signup-btn orange">LOGIN</button>
+        <button className="btn signup-btn orange" onClick={this.handleLoginClick}>LOGIN</button>
       </div>
     );
   }
