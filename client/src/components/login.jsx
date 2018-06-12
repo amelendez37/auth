@@ -32,7 +32,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="center">
+      <div className="center login">
         <TextField
          style={textFieldStyles.style}
          underlineFocusStyle={textFieldStyles.borderColor}
@@ -42,6 +42,7 @@ class Login extends Component {
          floatingLabelFixed={true}
          name="username"
          onChange={(e) => this.handleInputChange(e)}
+         className="username"
         />
         <TextField
          style={textFieldStyles.style}
@@ -55,7 +56,7 @@ class Login extends Component {
          className="password"
          type="password"
         />
-        <button className="btn signup-btn orange" onClick={this.handleLoginClick}>LOGIN</button>
+        <button className="btn auth-btn orange" onClick={this.handleLoginClick}>LOGIN</button>
       </div>
     );
   }

@@ -55,7 +55,7 @@ body {
 .orange {
     color: #FF6161;
 }
-.signup-btn {
+.auth-btn {
     position: relative;
     left: 1.5vw;
 }

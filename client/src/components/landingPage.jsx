@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class Main extends Component {
+class LandingPage extends Component {
   render() {
     return (
       <div className="center">
@@ -17,4 +17,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default LandingPage;

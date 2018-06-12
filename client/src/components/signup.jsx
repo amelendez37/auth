@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import TextField from 'material-ui/TextField';
 
 const textFieldStyles = {
@@ -20,6 +21,8 @@ class Signup extends Component {
       username: '',
       password: ''
     };
+
+    this.handleSignupClick = this.handleSignupClick.bind(this);
   }
 
   handleInputChange(e) {
@@ -27,7 +30,11 @@ class Signup extends Component {
   }
 
   handleSignupClick() {
-    // make post request to server
+    let payload = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    axios.post('http://localhost:3000/auth/signup', payload);
   }
 
   render() {
@@ -55,7 +62,7 @@ class Signup extends Component {
          className="password"
          type="password"
         />
-        <button className="btn signup-btn orange" onClick={this.handleSignupClick}>SIGN UP</button>
+        <button className="btn auth-btn orange" onClick={this.handleSignupClick}>SIGN UP</button>
       </div>
     );
   }
