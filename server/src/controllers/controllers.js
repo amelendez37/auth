@@ -25,15 +25,13 @@ export const loginController = async (req, res) => {
   try {
     let data = await loginQuery(req.params.username);
     let { rows } = data;
+    let password = req.params.password;
     success('Success in login controller');
-    if (rows.length) {
-      if (bcrypt.compareSync(req.params.password, rows[0].password)) {
-        return res.status(201).send();
-      } else {
-        return res.status(403).send();
-      }
+    if (rows.length && password && bcrypt.compareSync(password, rows[0].password)) {
+      return res.status(201).send();
+    } else {
+      return res.status(200).send();
     }
-    return res.status(403).send();
   } catch (err) {
     error('Error in login controller - ', err);
   }

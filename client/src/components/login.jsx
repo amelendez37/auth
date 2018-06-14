@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
+
+import Home from './home.jsx';
 
 const textFieldStyles = {
   style: { 
@@ -20,59 +22,62 @@ class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      authorized: false,
+      errorMessage: ''
     };
-
-    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
     
   handleInputChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleLoginClick(username, password) {
-    axios.get(`http://localhost:3000/auth/login/${username}/${password}`)
-         .then(res => {
-           console.log('SUCCESS HANDLER LOG', res.status)
-           if (res.status === 201) {
-             // redirect to home
-           }
-         })
-         .catch(err => {
-           console.log('ERROR HANDLER LOG', err);
-           // if status is a 403
-           // render invalid username or password message
-         });
+  async handleLoginClick(username, password) {
+   let data = await axios.get(`http://localhost:3000/auth/login/${username}/${password}`);
+   if (data.status === 201) {
+     this.setState({ authorized: true });
+   } else {
+     this.setState({ errorMessage: 'Invalid username or password.' });
+   }
   }
 
   render() {
     return (
-      <div className="center login">
-        <TextField
-         style={textFieldStyles.style}
-         underlineFocusStyle={textFieldStyles.borderColor}
-         floatingLabelStyle={textFieldStyles.color}
-         inputStyle={textFieldStyles.color}
-         floatingLabelText="USERNAME"
-         floatingLabelFixed={true}
-         name="username"
-         onChange={(e) => this.handleInputChange(e)}
-         className="username"
-        />
-        <TextField
-         style={textFieldStyles.style}
-         underlineFocusStyle={textFieldStyles.borderColor}
-         floatingLabelStyle={textFieldStyles.color}
-         inputStyle={textFieldStyles.color}
-         floatingLabelText="PASSWORD"
-         floatingLabelFixed={true}
-         name="password"
-         onChange={(e) => this.handleInputChange(e)}
-         className="password"
-         type="password"
-        />
-        <button className="btn auth-btn orange" onClick={() => this.handleLoginClick(this.state.username, this.state.password)}>LOGIN</button>
-      </div>
+      this.state.authorized ?
+        <Redirect to="/home"/>
+        :
+        <div className="center login">
+            <TextField
+            style={textFieldStyles.style}
+            underlineFocusStyle={textFieldStyles.borderColor}
+            floatingLabelStyle={textFieldStyles.color}
+            inputStyle={textFieldStyles.color}
+            floatingLabelText="USERNAME"
+            floatingLabelFixed={true}
+            name="username"
+            onChange={(e) => this.handleInputChange(e)}
+            className="username"
+            />
+            <TextField
+            style={textFieldStyles.style}
+            underlineFocusStyle={textFieldStyles.borderColor}
+            floatingLabelStyle={textFieldStyles.color}
+            inputStyle={textFieldStyles.color}
+            floatingLabelText="PASSWORD"
+            floatingLabelFixed={true}
+            name="password"
+            onChange={(e) => this.handleInputChange(e)}
+            className="password"
+            type="password"
+            />
+            <button className="btn auth-btn orange" onClick={() => this.handleLoginClick(this.state.username, this.state.password)}>LOGIN</button>
+            {
+              this.state.errorMessage ?
+                <p className="error-message">{this.state.errorMessage}</p>
+                :
+                null
+            }
+        </div>  
     );
   }
 }
