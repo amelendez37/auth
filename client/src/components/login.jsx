@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import axios from 'axios';
 import TextField from 'material-ui/TextField';
 
 const textFieldStyles = {
@@ -20,14 +22,27 @@ class Login extends Component {
       username: '',
       password: ''
     };
+
+    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
     
   handleInputChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleLoginClick() {
-    // make get request to server
+  handleLoginClick(username, password) {
+    axios.get(`http://localhost:3000/auth/login/${username}/${password}`)
+         .then(res => {
+           console.log('SUCCESS HANDLER LOG', res.status)
+           if (res.status === 201) {
+             // redirect to home
+           }
+         })
+         .catch(err => {
+           console.log('ERROR HANDLER LOG', err);
+           // if status is a 403
+           // render invalid username or password message
+         });
   }
 
   render() {
@@ -56,7 +71,7 @@ class Login extends Component {
          className="password"
          type="password"
         />
-        <button className="btn auth-btn orange" onClick={this.handleLoginClick}>LOGIN</button>
+        <button className="btn auth-btn orange" onClick={() => this.handleLoginClick(this.state.username, this.state.password)}>LOGIN</button>
       </div>
     );
   }

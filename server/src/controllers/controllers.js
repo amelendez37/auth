@@ -21,6 +21,20 @@ export const signupController = async (req, res) => {
   }
 };
 
-export const loginController = (req, res) => {
-  
+export const loginController = async (req, res) => {
+  try {
+    let data = await loginQuery(req.params.username);
+    let { rows } = data;
+    success('Success in login controller');
+    if (rows.length) {
+      if (bcrypt.compareSync(req.params.password, rows[0].password)) {
+        return res.status(201).send();
+      } else {
+        return res.status(403).send();
+      }
+    }
+    return res.status(403).send();
+  } catch (err) {
+    error('Error in login controller - ', err);
+  }
 };
