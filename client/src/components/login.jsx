@@ -37,7 +37,7 @@ class Login extends Component {
    if (data.status === 201) {
      this.setState({ authorized: true });
    } else {
-     this.setState({ errorMessage: 'Invalid username or password.' });
+     this.setState({ errorMessage: 'Invalid username or password' });
    }
   }
 

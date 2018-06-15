@@ -12,9 +12,9 @@ export const signupController = async (req, res) => {
   try {    
     let salt = bcrypt.genSaltSync(+process.env.SALT_ROUNDS);
     let hash = bcrypt.hashSync(req.body.password, salt);
-    await signupQuery(req.body.username, hash);
+    let data = await signupQuery(req.body.username, hash);
     success('Success in signup controller');
-    res.status(201).send();
+    return data ? res.status(201).send() : res.status(200).send();
   } catch (err) {
     error('Error in signupController - ', err)
     res.status(500).send();

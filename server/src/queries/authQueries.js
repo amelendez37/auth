@@ -4,20 +4,19 @@ import {
   error
 } from '../lib/log';
 
-export const signupQuery = (username, password) => {
+export const signupQuery = async (username, password) => {
   let query = `
     INSERT INTO
         users (username, password)
     VALUES
         ('${username}', '${password}')
     `;
-  db.query(query, (err, res) => {
-    if (err) {
-      error('Error in signup query - ', err);
-    } else {
-      success('Success in signup query')
-    }
-  });
+  try {
+    await db.query(query);
+    return true;
+  } catch (err) {
+    return false;
+  }
 };
 
 export const loginQuery = async (username) => {
