@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
 
-import Home from './home.jsx';
+import { authUser } from '../actions';
 
 const textFieldStyles = {
   style: { 
@@ -23,7 +24,6 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      authorized: false,
       errorMessage: ''
     };
   }
@@ -35,7 +35,7 @@ class Login extends Component {
   async handleLoginClick(username, password) {
    let data = await axios.get(`http://localhost:3000/auth/login/${username}/${password}`);
    if (data.status === 201) {
-     this.setState({ authorized: true });
+     this.props.authUser(username);
    } else {
      this.setState({ errorMessage: 'Invalid username or password' });
    }
@@ -43,7 +43,7 @@ class Login extends Component {
 
   render() {
     return (
-      this.state.authorized ?
+      this.props.authorized ?
         <Redirect to="/home"/>
         :
         <div className="center login">
@@ -82,4 +82,11 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    authorized: state.auth.user.authorized,
+    username: state.auth.user.username
+  }
+};
+
+export default connect(mapStateToProps, { authUser })(Login);

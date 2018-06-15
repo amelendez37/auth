@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
+
+import { authUser } from '../actions';
 
 const textFieldStyles = {
   style: { 
@@ -21,7 +24,6 @@ class Signup extends Component {
     this.state = {
       username: '',
       password: '',
-      authorized: false,
       errorMessage: ''
     };
 
@@ -32,23 +34,22 @@ class Signup extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  async handleSignupClick() {
+  async handleSignupClick(username, password) {
     let payload = {
-      username: this.state.username,
-      password: this.state.password
+      username: username,
+      password: password
     }
     let data = await axios.post('http://localhost:3000/auth/signup', payload);
     if (data.status === 201) {
-      this.setState({ authorized: true });
+      this.props.authUser(username);
     } else {
-      // user already exists error
       this.setState({ errorMessage: 'User already exists' });
     }
   }
 
   render() {
     return (
-      this.state.authorized ? 
+      this.props.authorized ? 
         <Redirect to="/home"/>
         :
         <div className="center">
@@ -74,7 +75,7 @@ class Signup extends Component {
           className="password"
           type="password"
           />
-          <button className="btn auth-btn orange" onClick={this.handleSignupClick}>SIGN UP</button>
+          <button className="btn auth-btn orange" onClick={() => this.handleSignupClick(this.state.username, this.state.password)}>SIGN UP</button>
           {
             this.state.errorMessage ?
               <p className="error-message">{this.state.errorMessage}</p>
@@ -86,4 +87,11 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+const mapStateToProps = (state) => {
+  return {
+    authorized: state.auth.user.authorized,
+    username: state.auth.user.username
+  }
+};
+
+export default connect(mapStateToProps, { authUser })(Signup);
