@@ -22,7 +22,7 @@ export const signupQuery = async (username, password) => {
 export const loginQuery = async (username) => {
   let query = `
       SELECT
-        password
+        username, password
       FROM
         users
       WHERE

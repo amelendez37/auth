@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
+import passport from 'passport';
 import axios from 'axios';
 import TextField from 'material-ui/TextField';
 
@@ -33,12 +34,16 @@ class Login extends Component {
   }
 
   async handleLoginClick(username, password) {
-   let data = await axios.get(`http://localhost:3000/auth/login/${username}/${password}`);
-   if (data.status === 201) {
-     this.props.authUser(username);
-   } else {
-     this.setState({ errorMessage: 'Invalid username or password' });
-   }
+    const payload = {
+      username: username,
+      password: password
+    }
+    try {
+      const { data } = await axios.post('http://localhost:3000/auth/login', payload);
+      this.props.authUser(data.username);
+    } catch (err) {
+      this.setState({ errorMessage: 'Invalid username or password' });
+    }
   }
 
   render() {

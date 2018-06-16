@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from '../middleware/validation/passport.js';
 import {
   signupController,
   loginController
@@ -7,6 +8,6 @@ import {
 const router = express.Router();
 
 router.post('/signup', signupController);
-router.get('/login/:username/:password', loginController);
+router.post('/login', passport.authenticate('local', { session: false }), loginController);
 
 export default router;

@@ -8,6 +8,6 @@ const initialState = {
 
 const createStoreWithMiddleware = applyMiddleware(logger)(createStore);
 export const store = createStoreWithMiddleware(
-    rootReducer,
-    initialState
+  rootReducer,
+  initialState
 );
