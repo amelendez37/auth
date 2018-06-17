@@ -35,14 +35,14 @@ class Signup extends Component {
   }
 
   async handleSignupClick(username, password) {
-    let payload = {
+    const payload = {
       username: username,
       password: password
     }
-    let data = await axios.post('http://localhost:3000/auth/signup', payload);
-    if (data.status === 201) {
+    try {
+      await axios.post('http://localhost:3000/auth/signup', payload);
       this.props.authUser(username);
-    } else {
+    } catch (err) {
       this.setState({ errorMessage: 'User already exists' });
     }
   }

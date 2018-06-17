@@ -15,8 +15,8 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path='/' component={LandingPage}/>
-            <Route path='/signup' render={props => <Signup handleInputChange={this.handleInputChange}/>}/>
-            <Route path='/login' render={props => <Login handleInputChange={this.handleInputChange}/>}/>
+            <Route path='/signup' component={Signup}/>
+            <Route path='/login' component={Login}/>
             <Route path='/home' component={Home}/>
           </Switch>
         </main>

@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import axios from 'axios';
+
+import { authUser } from '../actions';
 
 class LandingPage extends Component {
+  async componentDidMount() {
+    if (window.localStorage.token) { // check jwt
+      try {
+        const result = await axios.get('http://localhost:3000/home', {
+          headers: {
+            Authorization: window.localStorage.token
+          }
+        });
+        this.props.authUser(result.data);
+      } catch (err) {
+        console.log('invalid access token');
+      }
+    }
+  }
+
   render() {
     return (
       this.props.authorized ? 
@@ -28,4 +46,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, null)(LandingPage);
+export default connect(mapStateToProps, { authUser })(LandingPage);

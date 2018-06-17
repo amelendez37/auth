@@ -40,6 +40,7 @@ class Login extends Component {
     }
     try {
       const { data } = await axios.post('http://localhost:3000/auth/login', payload);
+      window.localStorage.token = data.token; // store jwt in local storage
       this.props.authUser(data.username);
     } catch (err) {
       this.setState({ errorMessage: 'Invalid username or password' });
