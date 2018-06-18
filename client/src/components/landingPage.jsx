@@ -9,14 +9,16 @@ class LandingPage extends Component {
   async componentDidMount() {
     if (window.localStorage.token) { // check jwt
       try {
-        const result = await axios.get('http://localhost:3000/home', {
+        const result = await axios.get(`http://localhost:3000/home`, {
           headers: {
             Authorization: window.localStorage.token
           }
         });
-        this.props.authUser(result.data);
+        if (result.data.token) {
+          this.props.authUser(result.data.username);
+        }
       } catch (err) {
-        console.log('invalid access token');
+        return; // jwt not valid
       }
     }
   }

@@ -29,9 +29,9 @@ export const loginController = async (req, res) => {
     delete rows[0].password;
     success('loginController - successfully retrieved data ', rows[0]);
     const token = await genToken({username: username});
-    return res.status(200).json({ token: token });
+    return res.status(200).json({ token: token, username: username });
   } catch (err) {
-    error('Error in login controller = ', err);
+    error('Error in login controller - ', err);
     return res.status(400).send();
   }
 };

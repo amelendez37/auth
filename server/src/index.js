@@ -4,8 +4,7 @@ import passport from 'passport';
 import bodyParser from 'body-parser';
 import router from './routes/routes.js';
 import { 
-  verifyUserWithJwt,
-  verifyUserWithJwtUsername
+  verifyUserWithJwt
  } from './middleware/auth/jwt.js';
 
 const server = express();
@@ -19,8 +18,7 @@ server.use(passport.initialize());
 
 // routes
 server.use('/auth', router);
-server.use('/home', verifyUserWithJwtUsername);
 // wildcard route
-server.use('/*', (req, res) => res.redirect('/'));
+server.use('/*', verifyUserWithJwt, router);
 
 server.listen(PORT, () => console.log(`Serving static files on port ${PORT}...`));
