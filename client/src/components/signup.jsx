@@ -43,7 +43,7 @@ class Signup extends Component {
       await axios.post('http://localhost:3000/auth/signup', payload);
       this.props.authUser(username);
     } catch (err) {
-      this.setState({ errorMessage: 'User already exists' });
+      this.setState({ errorMessage: 'User already exists or invalid input' });
     }
   }
 
