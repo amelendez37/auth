@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 // middleware
 server.use(express.static(path.resolve(__dirname, '../../client/dist')));
-server.use(express.urlencoded({ extended: true }));
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(passport.initialize());
 

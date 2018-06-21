@@ -49,7 +49,7 @@ class Login extends Component {
 
   render() {
     return (
-      this.props.authorized ?
+      this.props.username ?
         <Redirect to="/home"/>
         :
         <div className="center login">
@@ -90,7 +90,6 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    authorized: state.auth.user.authorized,
     username: state.auth.user.username
   }
 };
