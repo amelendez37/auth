@@ -25,7 +25,7 @@ class LandingPage extends Component {
 
   render() {
     return (
-      this.props.authorized ? 
+      this.props.username ? 
         <Redirect to="/home"/>
         :
         <div className="center">
