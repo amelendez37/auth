@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
 
 import { authUser } from '../actions';
 
-class LandingPage extends Component {
+export class LandingPage extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   async componentDidMount() {
     if (window.localStorage.token) { // check jwt
       try {
-        const result = await axios.get(`http://localhost:3000/home`, {
+        const result = await this.props.axios.get(`http://localhost:3000/home`, {
           headers: {
             Authorization: window.localStorage.token
           }

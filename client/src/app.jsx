@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import axios from 'axios';
 
 import LandingPage from './components/landingPage.jsx';
 import Signup from './components/signup.jsx';
@@ -14,7 +15,7 @@ class App extends Component {
       <MuiThemeProvider>
         <main>
           <Switch>
-            <Route exact path='/' component={LandingPage}/>
+            <Route exact path='/' render={() => <LandingPage axios={axios} />}/>
             <Route path='/signup' component={Signup}/>
             <Route path='/login' component={Login}/>
             <Route path='/home' component={Home}/>
